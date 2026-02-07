@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Zeppetella Construction LLC | Estacada, OR</title>
+    <meta name="description" content="Premier General Contractor in Portland Metro Area. Specializing in Residential Remodeling, Additions, and Commercial Construction. Quality over compromise." />
+    
+    <!-- Google Fonts: Saira (Brand/Industrial) & Manrope (Modern/Clean) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=Saira:wght@100..900&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['Manrope', 'sans-serif'],
+              display: ['Saira', 'sans-serif'],
+            },
+            colors: {
+              primaryRed: '#082C3C',
+              accentRed: '#104a63',
+              darkBlack: '#0B0B0B',
+              charcoal: '#1A1A1A',
+              mediumGray: '#CFCFCF',
+              lightGray: '#F5F5F5',
+            }
+          }
+        }
+      }
+    </script>
+    <style>
+      /* --- PREMIUM ANIMATION SYSTEM --- */
+      
+      /* Global Smooth Scroll */
+      html { scroll-behavior: smooth; }
+
+      /* Custom Scrollbar */
+      ::-webkit-scrollbar { width: 8px; }
+      ::-webkit-scrollbar-track { background: #0B0B0B; }
+      ::-webkit-scrollbar-thumb { background: #082C3C; border-radius: 0px; }
+
+      /* Reveal Base Styles - Using Luxury Easing */
+      .reveal {
+        opacity: 0;
+        transform: translateY(40px);
+        transition: opacity 1.4s cubic-bezier(0.16, 1, 0.3, 1), 
+                    transform 1.4s cubic-bezier(0.16, 1, 0.3, 1);
+        will-change: transform, opacity;
+      }
+
+      .reveal-left {
+        opacity: 0;
+        transform: translateX(-50px);
+        transition: opacity 1.4s cubic-bezier(0.16, 1, 0.3, 1), 
+                    transform 1.4s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+
+      .reveal-right {
+        opacity: 0;
+        transform: translateX(50px);
+        transition: opacity 1.4s cubic-bezier(0.16, 1, 0.3, 1), 
+                    transform 1.4s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+
+      .reveal-scale {
+        opacity: 0;
+        transform: scale(0.92);
+        transition: opacity 1.4s cubic-bezier(0.16, 1, 0.3, 1), 
+                    transform 1.4s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+
+      /* Masked Text Reveal (Headings) */
+      .mask-reveal {
+        overflow: hidden;
+        display: inline-block;
+        vertical-align: top;
+      }
+      .mask-reveal > span {
+        display: block;
+        transform: translateY(110%);
+        transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .active .mask-reveal > span,
+      .mask-reveal.active > span {
+        transform: translateY(0);
+      }
+
+      /* Active State */
+      .reveal.active,
+      .reveal-left.active,
+      .reveal-right.active,
+      .reveal-scale.active {
+        opacity: 1;
+        transform: translate(0) scale(1);
+      }
+
+      /* Stagger Delays - Automatically applied by JS but can be manual */
+      .delay-100 { transition-delay: 0.1s; }
+      .delay-200 { transition-delay: 0.2s; }
+      .delay-300 { transition-delay: 0.3s; }
+      .delay-400 { transition-delay: 0.4s; }
+      .delay-500 { transition-delay: 0.5s; }
+
+      /* Image Parallax Effect */
+      .parallax-img {
+        transition: transform 2s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .active .parallax-img {
+        transform: scale(1.05);
+      }
+
+      /* Stripe Background Transitions */
+      .stripe-reveal {
+        clip-path: polygon(0 0, 0 0, 0 100%, 0% 100%);
+        transition: clip-path 1.6s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .stripe-reveal.active {
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react-dom/": "https://esm.sh/react-dom@^19.2.4/",
+    "react/": "https://esm.sh/react@^19.2.4/",
+    "react": "https://esm.sh/react@^19.2.4",
+    "lucide-react": "https://esm.sh/lucide-react@^0.563.0"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+  <body class="bg-darkBlack text-white antialiased selection:bg-primaryRed selection:text-white">
+    <div id="root"></div>
+    
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const observerOptions = {
+          root: null,
+          rootMargin: '-50px',
+          threshold: 0.15
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              // Add a slight stagger delay if multiple items enter at once
+              const revealElements = Array.from(document.querySelectorAll('.active')).length;
+              entry.target.classList.add('active');
+              observer.unobserve(entry.target);
+            }
+          });
+        }, observerOptions);
+
+        const observeElements = () => {
+          const elements = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale, .mask-reveal, .stripe-reveal');
+          elements.forEach(el => observer.observe(el));
+        };
+
+        observeElements();
+
+        // Watch for React-driven DOM updates
+        const mutationObserver = new MutationObserver(() => {
+          observeElements();
+        });
+
+        const root = document.getElementById('root');
+        if (root) {
+          mutationObserver.observe(root, { childList: true, subtree: true });
+        }
+      });
+    </script>
+  <script type="module" src="/index.tsx"></script>
+</body>
+</html>
